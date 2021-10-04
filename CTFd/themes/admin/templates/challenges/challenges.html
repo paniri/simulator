@@ -8,7 +8,7 @@
 {% block content %}
 <div class="jumbotron">
 	<div class="container">
-		<h1>Challenges
+		<h1 dir="rtl">שאלות
 			<a class="no-decoration" href="{{ url_for('admin.challenges_new') }}">
 				<span role="button" data-toggle="tooltip" title="Create Challenge">
 					<i class="btn-fa fas fa-plus-circle"></i>
@@ -67,7 +67,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div>
-				<table id="challenges" class="table table-striped border">
+				<table id="challenges" class="table table-striped border text-right" dir="rtl">
 					<thead>
 					<tr>
 						<td class="d-block border-right border-bottom text-center" data-checkbox>
@@ -76,11 +76,11 @@
 							</div>
 						</td>
 						<th class="sort-col text-center"><b>ID</b></th>
-						<th class="sort-col"><b>Name</b></th>
-						<th class="d-none d-md-table-cell d-lg-table-cell sort-col"><b>Category</b></th>
-						<th class="d-none d-md-table-cell d-lg-table-cell sort-col text-center"><b>Value</b></th>
-						<th class="d-none d-md-table-cell d-lg-table-cell sort-col text-center"><b>Type</b></th>
-						<th class="d-none d-md-table-cell d-lg-table-cell sort-col text-center"><b>State</b></th>
+						<th class="sort-col"><b>שם</b></th>
+						<th class="d-none d-md-table-cell d-lg-table-cell sort-col"><b>קטגוריה</b></th>
+						<th class="d-none d-md-table-cell d-lg-table-cell sort-col text-center"><b>ניקוד</b></th>
+						<th class="d-none d-md-table-cell d-lg-table-cell sort-col text-center"><b>סוג</b></th>
+						<th class="d-none d-md-table-cell d-lg-table-cell sort-col text-center"><b>מצב</b></th>
 					</tr>
 					</thead>
 					<tbody>

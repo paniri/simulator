@@ -83,12 +83,12 @@ class UserSearchForm(BaseForm):
     field = SelectField(
         "Search Field",
         choices=[
-            ("name", "Name"),
+            ("name", "שם"),
             ("id", "ID"),
-            ("email", "Email"),
-            ("affiliation", "Affiliation"),
-            ("website", "Website"),
-            ("ip", "IP Address"),
+            ("email", "כתובת מייל"),
+            # ("affiliation", "Affiliation"),
+            # ("website", "Website"),
+            # ("ip", "IP Address"),
         ],
         default="name",
         validators=[InputRequired()],

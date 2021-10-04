@@ -1,0 +1,173 @@
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+		<div class="modal-body">
+			<button type="button" class="close float-left" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+
+			<ul class="nav nav-tabs pr-0 qhead">
+
+				<li class="nav-item text-right font-weight-bold">
+					<a class="nav-link active" href="#challenge">{{ challenge.category }}</a>
+				</li>
+
+				{% block solves %}
+				{% if is_admin() %}
+				<li class="nav-item pl-1">
+					<a class="nav-link challenge-solves" href="#solves">
+						{% if solves != None %}
+							{{ solves }} {% if solves > 1 %}פתרונות{% else %}פתרונות{% endif %}
+						{% endif %}
+					</a>
+				</li>
+				{% endif %}
+				{% endblock %}
+			</ul>
+			<div role="tabpanel">
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane fade show active" id="challenge">
+						<h5 class='challenge-name text-center pt-3 pb-3 mt-2 alert-primary'>
+							{{ challenge.name }}
+						</h5>
+
+						<div class="challenge-tags text-center">
+							{% block tags %}
+								{% for tag in tags %}
+									<span class='badge badge-info challenge-tag'>{{ tag }}</span>
+								{% endfor %}
+							{% endblock %}
+						</div>
+
+						<span class="challenge-desc challenge-quest text-right" dir="rtl">{% block description %}{{ challenge.html }}{% endblock %}</span>
+
+						<div class="challenge-hints hint-row row">
+							{% for hint in hints %}
+								<div class='col-md-12 hint-button-wrapper text-center mb-3'>
+									<a class="btn btn-info btn-hint btn-block load-hint" href="javascript:;" data-hint-id="{{ hint.id }}">
+										{% if hint.content %}
+											<small>
+												צפיה ברמז
+											</small>
+										{% else %}
+											{% if hint.cost %}
+												<small>
+													צפייה ברמז תמורת {{ hint.cost }} נקודות
+												</small>
+											{% else %}
+												<small>
+													צפיה ברמז
+												</small>
+											{% endif %}
+										{% endif %}
+									</a>
+								</div>
+							{% endfor %}
+						</div>
+
+						<div class="row challenge-files text-center pb-3">
+							{% for file in files %}
+								<div class='col-md-4 col-sm-4 col-xs-12 file-button-wrapper d-block'>
+									<a class='btn btn-info btn-file mb-1 d-inline-block px-2 w-100 text-truncate'
+									   href='{{ file }}'>
+										<i class="fas fa-download"></i>
+										<small>
+											{% set segments = file.split('/') %}
+											{% set file = segments | last %}
+											{% set token = file.split('?') | last %}
+											{% if token %}
+												{{ file | replace("?" + token, "") }}
+											{% else %}
+												{{ file }}
+											{% endif %}
+										</small>
+									</a>
+								</div>
+							{% endfor %}
+						</div>
+
+						{% if max_attempts > 1 %}
+						<div class="row text-center">
+							<div class="col-md-12">
+								<p>
+									{{ attempts }}/{{ max_attempts }} attempt{{ attempts|pluralize(attempts) }}
+								</p>
+							</div>
+						</div>
+						{% endif %}
+
+						<div class="row submit-row" dir="rtl">
+							<div class="col-md-9 float-right form-group">
+								{% block input %}
+									<input id="challenge-id" class="challenge-id" type="hidden" value="{{ challenge.id }}">
+									<input id="challenge-input" class="challenge-input" type="text" name="answer" placeholder="הכניסו תשובה"/>
+								{% endblock %}
+							</div>
+							<div class="col-md-3 float-left form-group key-submit">
+								{% block submit %}
+								<button id="challenge-submit" class="challenge-submit" type="submit">
+									שלח
+								</button>
+								{% endblock %}
+							</div>
+
+
+						</div>
+						<h6 class="text-center mt-2" dir="rtl">
+							ערך השאלה: {{ challenge.value }}
+						</h6>
+			
+						<div class="row notification-row">
+							<div class="col-md-12">
+								<div id="result-notification" class="alert alert-dismissable text-center w-100"
+									 role="alert" style="display: none;">
+									<strong id="result-message"></strong>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row notification-row">
+						<div class="col-md-12">
+							<div id="result-notification-melel" class="alert alert-info text-center w-100"
+								 role="alert" style="display: none;">
+								<strong>תשובתך נשלחה לבדיקה</strong>
+							</div>
+						</div>
+					</div>
+					
+					<div role="tabpanel" class="tab-pane fade" id="solves">
+						<div class="row">
+							<div class="col-md-12">
+								<table class="table table-striped text-center">
+									<thead>
+									<tr>
+										<td><b>שם</b>
+										</td>
+										<td><b>תאריך</b>
+										</td>
+									</tr>
+									</thead>
+									<tbody id="challenge-solves-names">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	kisur = document.getElementsByClassName("challenge-desc")[0].getElementsByTagName("P")[0].getElementsByTagName("a")[0]
+	if (kisur) {
+		kisur.setAttribute("target", "_blank");
+	}
+	melel = document.getElementsByClassName("melel")[0]
+	if (melel) {
+		document.getElementsByClassName("notification-row")[0].remove();
+	}
+	function to_check() {
+        document.getElementById("result-notification-melel").style = "display: block;";
+    }
+</script>

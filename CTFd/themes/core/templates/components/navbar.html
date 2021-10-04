@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" dir="rtl">
     <div class="container">
         <a href="{{ url_for('views.static_html', route='/') }}" class="navbar-brand">
             {% if Configs.ctf_logo %}
@@ -36,36 +36,39 @@
                     </li>
                 {% endif %}
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('challenges.listing') }}">Challenges</a>
-                </li>
+
             </ul>
 
             <hr class="d-sm-flex d-md-flex d-lg-none">
 
-            <ul class="navbar-nav ml-md-auto d-block d-sm-flex d-md-flex">
+            <ul class="navbar-nav mr-md-auto d-block d-sm-flex d-md-flex">
                 {% if authed() %}
                     {% if is_admin() %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('admin.view') }}">
-                                <span class="d-block" data-toggle="tooltip" data-placement="bottom" title="Admin Panel">
+                                <span class="d-block" data-toggle="tooltip" data-placement="bottom" title="לוח ניהול">
                                     <i class="fas fa-wrench d-none d-md-block d-lg-none"></i>
                                 </span>
                                 <span class="d-sm-block d-md-none d-lg-block">
-                                    <i class="fas fa-wrench pr-1"></i>Admin Panel
+                                    <i class="fas fa-wrench pl-1 float-right"></i>לוח ניהול
                                 </span>
                             </a>
                         </li>
                     {% endif %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('challenges.listing') }}">שאלות</a>
+                    </li>
+                    {% if is_admin() %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('views.notifications') }}">
                             <span class="d-block" data-toggle="tooltip" data-placement="bottom" title="Notifications">
                                 <i class="fas fa-bell d-none d-md-block d-lg-none"></i>
                             </span>
                             <span class="d-sm-block d-md-none d-lg-block">
-                                <i class="fas fa-bell pr-1"></i>
+                                <i class="fas fa-bell pl-1 float-right"></i>
                                 <span class="badge badge-pill badge-danger badge-notification"></span>
-                                Notifications
+                                הודעות
                             </span>
                         </a>
                     </li>
@@ -81,13 +84,14 @@
                         </a>
                     </li>
                     {% endif %}
+                    
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('users.private') }}">
                             <span class="d-block" data-toggle="tooltip" data-placement="bottom" title="Profile">
                                 <i class="fas fa-user-circle d-none d-md-block d-lg-none"></i>
                             </span>
                             <span class="d-sm-block d-md-none d-lg-block">
-                                <i class="fas fa-user-circle pr-1"></i>Profile
+                                <i class="fas fa-user-circle pl-1 float-right"></i>פרופיל
                             </span>
                         </a>
                     </li>
@@ -97,17 +101,18 @@
                                 <i class="fas fa-cogs d-none d-md-block d-lg-none"></i>
                             </span>
                             <span class="d-sm-block d-md-none d-lg-block">
-                                <i class="fas fa-cogs pr-1"></i>Settings
+                                <i class="fas fa-cogs pl-1 float-right"></i>הגדרות
                             </span>
                         </a>
                     </li>
+                    {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('auth.logout') }}">
+                        <a class="nav-link" href="{{ url_for('auth.logout') }}" title="התנתקות">
                             <span class="d-block" data-toggle="tooltip" data-placement="bottom" title="Logout">
                                 <i class="fas fa-sign-out-alt d-none d-md-block d-lg-none"></i>
                             </span>
                             <span class="d-sm-block d-md-none d-lg-block">
-                                <i class="fas fa-sign-out-alt pr-1"></i><span class="d-lg-none">Logout</span>
+                                <i class="fas fa-sign-out-alt pl-1 float-right"></i><span class="d-lg-none">התנתק</span>
                             </span>
                         </a>
                     </li>
@@ -126,11 +131,11 @@
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('auth.login') }}">
-                            <span class="d-block" data-toggle="tooltip" data-placement="bottom" title="Login">
+                            <span class="d-block" data-toggle="tooltip" data-placement="bottom" title="התחבר">
                                 <i class="fas fa-sign-in-alt d-none d-md-block d-lg-none"></i>
                             </span>
                             <span class="d-sm-block d-md-none d-lg-block">
-                                <i class="fas fa-sign-in-alt pr-1"></i>Login
+                                <i class="fas fa-sign-in-alt pl-1 pt-1 float-right"></i>התחבר
                             </span>
                         </a>
                     </li>
